@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MovieCatalogue</string>
+    <string name="title_home">Movies</string>
+    <string name="title_tv_shows">TV Shows</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="movies_title">Movies Title</string>
+    <string name="movies_desc">Movies Desc</string>
+    <string name="movies_date">Movies Date</string>
+    <string name="movies_motto">Movies Motto</string>
+    <string name="movies_director">Movies Director</string>
+    <string name="poster">poster</string>
+    <string name="director">Director:</string>
+    <string name="overview">Overview</string>
+</resources>
