@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1000dp"
         android:padding="10dp">
 
         <ImageView
@@ -18,7 +18,7 @@
             android:contentDescription="@string/poster"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            />
 
         <TextView
             android:id="@+id/tv_detail_name"
@@ -28,10 +28,9 @@
             android:text="@string/movies_title"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/img_detail"
-            app:layout_constraintTop_toTopOf="@+id/img_detail" />
+            android:layout_toRightOf="@id/img_detail"
+            android:layout_toEndOf="@id/img_detail"
+            />
 
         <TextView
             android:id="@+id/tv_detail_date"
@@ -39,10 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/movies_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_detail_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_name" />
+            android:layout_toRightOf="@id/img_detail"
+            android:layout_toEndOf="@id/img_detail"
+            android:layout_below="@+id/tv_detail_name"
+            />
 
         <TextView
             android:id="@+id/tv_detail_motto"
@@ -54,9 +53,9 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/img_detail"
-            app:layout_constraintTop_toBottomOf="@+id/img_detail" />
+            android:layout_below="@id/img_detail"
+            android:layout_centerHorizontal="true"
+            />
 
         <TextView
             android:id="@+id/tv_detail_dir"
@@ -66,10 +65,8 @@
             android:text="@string/director"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/img_detail"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_motto" />
+            android:layout_below="@id/tv_detail_motto"
+            />
 
         <TextView
             android:id="@+id/tv_detail_director"
@@ -77,12 +74,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="20dp"
             android:text="@string/movies_director"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tv_detail_dir"
-            app:layout_constraintTop_toTopOf="@+id/tv_detail_dir" />
+            android:layout_toRightOf="@id/tv_detail_dir"
+            android:layout_below="@id/tv_detail_motto"
+            android:layout_toEndOf="@id/tv_detail_dir" />
 
         <TextView
             android:id="@+id/tv_detail_o"
@@ -92,24 +89,19 @@
             android:text="@string/overview"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/tv_detail_director"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_detail_dir"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_dir" />
+            android:layout_below="@id/tv_detail_dir"
+            />
 
         <TextView
             android:id="@+id/tv_detail_overview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:justificationMode="inter_word"
             android:text="@string/movies_desc"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail_o"
+            android:layout_below="@id/tv_detail_o"
             tools:targetApi="o" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 </ScrollView>
