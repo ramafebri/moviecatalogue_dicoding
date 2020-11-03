@@ -17,8 +17,8 @@ class DetailViewModel: ViewModel() {
         }
     }
 
-    fun getDetailMovies(): MoviesEntity {
-        lateinit var movies: MoviesEntity
+    fun getDetailMovies(): MoviesEntity? {
+        var movies: MoviesEntity? = null
         val moviesEntities = DataDummy.generateMovies()
         for (moviesEntity in moviesEntities) {
             if (moviesEntity.moviesId == moviesId) {
@@ -28,8 +28,8 @@ class DetailViewModel: ViewModel() {
         return movies
     }
 
-    fun getDetailTvShows(): TvShowsEntity {
-        lateinit var tvShows: TvShowsEntity
+    fun getDetailTvShows(): TvShowsEntity? {
+        var tvShows: TvShowsEntity? = null
         val tvShowsEntities = DataDummy.generateTvShows()
         for (tvShowsEntity in tvShowsEntities) {
             if (tvShowsEntity.tvShowsId == tvId) {

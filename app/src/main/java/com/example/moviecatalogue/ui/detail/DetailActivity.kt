@@ -46,10 +46,14 @@ class DetailActivity : AppCompatActivity() {
                 viewModel.setSelectedDetail(itemId, isMovies.toBoolean())
                 if(isMovies.toBoolean()){
                     val data = viewModel.getDetailMovies()
-                    putDataMoviesToView(data)
+                    if (data != null) {
+                        putDataMoviesToView(data)
+                    }
                 } else {
                     val data = viewModel.getDetailTvShows()
-                    putDataTvShowsToView(data)
+                    if (data != null) {
+                        putDataTvShowsToView(data)
+                    }
                 }
             }
         }
