@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.data
+package com.example.moviecatalogue.data.source.local.entity
 
 data class TvShowsEntity (
     var tvShowsId: String,

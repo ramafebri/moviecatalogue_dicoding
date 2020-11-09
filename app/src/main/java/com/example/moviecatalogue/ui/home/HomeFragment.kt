@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.MoviesEntity
+import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
+import com.example.moviecatalogue.viewmodel.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -24,9 +26,15 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[HomeViewModel::class.java]
-            val movies = viewModel.getMovies()
-            val homeAdapter = HomeAdapter(movies as ArrayList<MoviesEntity>)
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+            val homeAdapter = HomeAdapter()
+            viewModel.getMovies().observe(viewLifecycleOwner, { movies ->
+                homeAdapter.setMovies(movies)
+                homeAdapter.notifyDataSetChanged()
+            })
+
             with(rv_home_fragment) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)

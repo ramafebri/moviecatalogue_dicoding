@@ -1,8 +1,8 @@
 package com.example.moviecatalogue.utils
 
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.MoviesEntity
-import com.example.moviecatalogue.data.TvShowsEntity
+import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
+import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 
 object DataDummy {
     fun generateMovies(): List<MoviesEntity> {

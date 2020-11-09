@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.TvShowsEntity
+import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 import kotlinx.android.synthetic.main.fragment_tvshows.*
 
 class TvShowsFragment : Fragment() {

@@ -1,8 +1,8 @@
 package com.example.moviecatalogue.ui.detail
 
 import androidx.lifecycle.ViewModel
-import com.example.moviecatalogue.data.MoviesEntity
-import com.example.moviecatalogue.data.TvShowsEntity
+import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
+import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 import com.example.moviecatalogue.utils.DataDummy
 
 class DetailViewModel: ViewModel() {

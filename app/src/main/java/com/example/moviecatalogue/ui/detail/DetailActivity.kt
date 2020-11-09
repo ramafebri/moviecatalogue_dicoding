@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.MoviesEntity
-import com.example.moviecatalogue.data.TvShowsEntity
+import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
+import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity() {
