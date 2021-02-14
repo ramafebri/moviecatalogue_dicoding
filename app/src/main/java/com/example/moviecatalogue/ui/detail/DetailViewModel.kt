@@ -1,41 +1,23 @@
 package com.example.moviecatalogue.ui.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.moviecatalogue.data.source.MoviesTvRepository
 import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
 import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
-import com.example.moviecatalogue.utils.DataDummy
+import com.example.moviecatalogue.data.source.remote.response.MoviesDetailResponse
+import com.example.moviecatalogue.data.source.remote.response.TvDetailResponse
 
-class DetailViewModel: ViewModel() {
-    private lateinit var moviesId: String
-    private lateinit var tvId: String
+class DetailViewModel(private val moviesTvRepository: MoviesTvRepository) : ViewModel() {
+    fun getDetailMovies(): LiveData<MoviesDetailResponse?> = moviesTvRepository.getDetailMovies()
+    fun setDetailMovies(id: Int) = moviesTvRepository.setDetailMovies(id)
+    fun getDetailTv(): LiveData<TvDetailResponse?> = moviesTvRepository.getDetailTv()
+    fun setDetailTv(id: Int) = moviesTvRepository.setDetailTv(id)
 
-    fun setSelectedDetail(dataId: String, isMovies: Boolean) {
-        if(isMovies){
-            this.moviesId = dataId
-        } else {
-            this.tvId = dataId
-        }
-    }
-
-    fun getDetailMovies(): MoviesEntity? {
-        var movies: MoviesEntity? = null
-        val moviesEntities = DataDummy.generateMovies()
-        for (moviesEntity in moviesEntities) {
-            if (moviesEntity.moviesId == moviesId) {
-                movies = moviesEntity
-            }
-        }
-        return movies
-    }
-
-    fun getDetailTvShows(): TvShowsEntity? {
-        var tvShows: TvShowsEntity? = null
-        val tvShowsEntities = DataDummy.generateTvShows()
-        for (tvShowsEntity in tvShowsEntities) {
-            if (tvShowsEntity.tvShowsId == tvId) {
-                tvShows = tvShowsEntity
-            }
-        }
-        return tvShows
-    }
+    fun getFavMoviesById(id: Int): LiveData<MoviesEntity> = moviesTvRepository.getFavMoviesById(id)
+    fun insertFavMovies(moviesEntity: MoviesEntity) = moviesTvRepository.insertFavMovies(moviesEntity)
+    fun delFavMovies(moviesEntity: MoviesEntity) = moviesTvRepository.deleteFavMovies(moviesEntity)
+    fun getFavTvById(id: Int): LiveData<TvShowsEntity> = moviesTvRepository.getFavTvById(id)
+    fun insertFavTv(tvShowsEntity: TvShowsEntity) = moviesTvRepository.insertFavTv(tvShowsEntity)
+    fun delFavTv(tvShowsEntity: TvShowsEntity) = moviesTvRepository.deleteFavTv(tvShowsEntity)
 }

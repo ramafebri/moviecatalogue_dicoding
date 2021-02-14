@@ -1,15 +1,20 @@
 package com.example.moviecatalogue.di
 
 import android.content.Context
-import com.example.moviecatalogue.data.source.MoviesRepository
+import com.example.moviecatalogue.data.source.MoviesTvRepository
+import com.example.moviecatalogue.data.source.local.LocalDataSource
+import com.example.moviecatalogue.data.source.local.room.FavoriteDatabase
 import com.example.moviecatalogue.data.source.remote.RemoteDataSource
-import com.example.moviecatalogue.utils.JsonHelper
+import com.example.moviecatalogue.utils.AppExecutors
 
 object Injection {
-    fun provideRepository(context: Context): MoviesRepository {
+    fun provideRepository(context: Context): MoviesTvRepository {
 
-        val remoteDataSource = RemoteDataSource.getInstance(JsonHelper(context))
+        val database = FavoriteDatabase.getInstance(context)
+        val localDataSource = LocalDataSource.getInstance(database.favoriteDao())
+        val remoteDataSource = RemoteDataSource()
+        val appExecutors = AppExecutors()
 
-        return MoviesRepository.getInstance(remoteDataSource)
+        return MoviesTvRepository.getInstance(remoteDataSource, localDataSource, appExecutors)
     }
 }

@@ -8,11 +8,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
+import com.example.moviecatalogue.data.source.remote.response.ResultsItemTv
+import com.example.moviecatalogue.databinding.ItemListBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
-import kotlinx.android.synthetic.main.item_list.view.*
+import com.example.moviecatalogue.utils.JsonHelper
 
-class TvShowsAdapter(private var tvShowsEntity: ArrayList<TvShowsEntity>) : RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
+class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
+
+    private var tvEntity = ArrayList<ResultsItemTv?>()
+
+    fun setMovies(tv: ArrayList<ResultsItemTv?>) {
+        this.tvEntity.clear()
+        this.tvEntity.addAll(tv)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -20,30 +28,33 @@ class TvShowsAdapter(private var tvShowsEntity: ArrayList<TvShowsEntity>) : Recy
     }
 
     override fun onBindViewHolder(holder: TvShowsAdapter.ViewHolder, position: Int) {
-        holder.bind(tvShowsEntity[position])
+        tvEntity[position]?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
-        return tvShowsEntity.size
+        return tvEntity.size
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(tvShowsEntity: TvShowsEntity) {
-            with(itemView) {
-                tv_item_title.text = tvShowsEntity.title
-                tv_item_date.text = tvShowsEntity.year
-                tv_item_motto.text = tvShowsEntity.motto
+        private val binding = ItemListBinding.bind(view)
+        fun bind(tvShows: ResultsItemTv) {
+            with(binding) {
+                tvItemTitle.text = tvShows.name
+                tvItemDate.text = tvShows.firstAirDate
+                tvItemMotto.text = tvShows.originalLanguage
 
-                Glide.with(context)
-                    .load(tvShowsEntity.imagePath)
+                val jsonHelper = JsonHelper()
+                val imgUri = tvShows.posterPath?.let { jsonHelper.loadImage(it) }
+                Glide.with(root.context)
+                    .load(imgUri)
                     .apply(RequestOptions().override(120, 150))
-                    .into(img_poster)
+                    .into(imgPoster)
             }
-            itemView.setOnClickListener {
-                val moveToDetail = Intent(itemView.context, DetailActivity::class.java)
-                moveToDetail.putExtra(DetailActivity.ITEM_ID, tvShowsEntity.tvShowsId)
+            binding.root.setOnClickListener {
+                val moveToDetail = Intent(binding.root.context, DetailActivity::class.java)
                 moveToDetail.putExtra(DetailActivity.IS_MOVIES, "false")
-                itemView.context.startActivity(moveToDetail)
+                moveToDetail.putExtra(DetailActivity.ID, tvShows.id)
+                binding.root.context.startActivity(moveToDetail)
             }
         }
     }

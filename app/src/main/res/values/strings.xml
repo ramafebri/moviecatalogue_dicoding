@@ -2,14 +2,21 @@
     <string name="app_name">MovieCatalogue</string>
     <string name="title_home">Movies</string>
     <string name="title_tv_shows">TV Shows</string>
+    <string name="title_favorite">Favorite</string>
     <string name="title_notifications">Notifications</string>
     <string name="movies_title">Movies Title</string>
     <string name="movies_desc">Movies Desc</string>
     <string name="movies_date">Movies Date</string>
     <string name="movies_motto">Movies Motto</string>
     <string name="movies_director">Movies Director</string>
+    <string name="movies_popularity">Movies Popularity</string>
+    <string name="movies_adult">Movies Adult</string>
+    <string name="movies_language">Movies Language</string>
     <string name="poster">poster</string>
     <string name="director">Director:</string>
+    <string name="popularity">Popularity:</string>
+    <string name="adult">Adult:</string>
     <string name="overview">Overview</string>
     <string name="api_key">7b4115d0eb2b288c943ffcb79cdb36a7</string>
+    <string name="favbutton">favbutton</string>
 </resources>

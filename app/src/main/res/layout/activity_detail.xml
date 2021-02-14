@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".ui.detail.DetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:paddingBottom="20dp">
 
         <ImageView
             android:id="@+id/img_detail"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center_horizontal"
-            android:text="@string/movies_motto"
+            android:text="@string/movies_language"
             android:textAlignment="center"
             android:textSize="16sp"
             android:textStyle="italic"
@@ -62,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/director"
+            android:text="@string/popularity"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_below="@id/tv_detail_motto"
@@ -75,7 +77,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
-            android:text="@string/movies_director"
+            android:text="@string/movies_popularity"
             android:textSize="16sp"
             android:layout_toRightOf="@id/tv_detail_dir"
             android:layout_below="@id/tv_detail_motto"
@@ -102,6 +104,28 @@
             android:textSize="16sp"
             android:layout_below="@id/tv_detail_o"
             tools:targetApi="o" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_detail_overview"
+            android:layout_alignEnd="@id/tv_detail_overview"
+            android:layout_alignRight="@id/tv_detail_overview"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/favbutton"
+            android:foregroundGravity="bottom"
+            app:srcCompat="@drawable/ic_favorite_black_24dp"
+            app:backgroundTint="#9C27B0"
+            app:fabSize="normal"
+            app:layout_anchor="@id/tv_detail_overview"
+            app:layout_anchorGravity="bottom|end"
+            />
 
     </RelativeLayout>
 </ScrollView>

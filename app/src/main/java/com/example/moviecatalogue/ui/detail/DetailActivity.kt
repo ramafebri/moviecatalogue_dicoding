@@ -1,89 +1,167 @@
 package com.example.moviecatalogue.ui.detail
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
 import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
-import kotlinx.android.synthetic.main.activity_detail.*
+import com.example.moviecatalogue.data.source.remote.response.MoviesDetailResponse
+import com.example.moviecatalogue.data.source.remote.response.TvDetailResponse
+import com.example.moviecatalogue.databinding.ActivityDetailBinding
+import com.example.moviecatalogue.utils.JsonHelper
+import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {
-    private lateinit var tvDetailName: TextView
-    private lateinit var tvDetailYear: TextView
-    private lateinit var tvDetailMotto: TextView
-    private lateinit var tvDetailDirector: TextView
-    private lateinit var tvDetailOverview: TextView
-    private lateinit var imgDetail: ImageView
+    private lateinit var binding: ActivityDetailBinding
+    private lateinit var viewModel: DetailViewModel
+    private var moviesDetailResponse: MoviesDetailResponse? = null
+    private var tvDetailResponse: TvDetailResponse? = null
+    private val jsonHelper = JsonHelper()
+    private var isFavorite = false
 
     companion object {
-        const val ITEM_ID = "0"
+        const val ID = "id"
         const val IS_MOVIES = "true"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        supportActionBar?.title = "Detail Item"
 
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailViewModel::class.java]
-
-        tvDetailName = findViewById(R.id.tv_detail_name)
-        tvDetailYear = findViewById(R.id.tv_detail_date)
-        tvDetailMotto = findViewById(R.id.tv_detail_motto)
-        tvDetailDirector = findViewById(R.id.tv_detail_director)
-        tvDetailOverview = findViewById(R.id.tv_detail_overview)
-        imgDetail = findViewById(R.id.img_detail)
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
 
         val extras = intent.extras
         if (extras != null) {
-            val itemId = extras.getString(ITEM_ID)
             val isMovies = extras.getString(IS_MOVIES)
-            if (itemId != null) {
-                viewModel.setSelectedDetail(itemId, isMovies.toBoolean())
-                if(isMovies.toBoolean()){
-                    val data = viewModel.getDetailMovies()
-                    if (data != null) {
-                        putDataMoviesToView(data)
+            val id = extras.getInt(ID)
+
+            if(isMovies.toBoolean()){
+                viewModel.getFavMoviesById(id).observe(this, {favMovies->
+                    if(favMovies !== null){
+                        if(favMovies.id > 0){
+                            isFavorite = true
+                            setFavButtonColor(true)
+                        }
                     }
-                } else {
-                    val data = viewModel.getDetailTvShows()
-                    if (data != null) {
-                        putDataTvShowsToView(data)
+                })
+                viewModel.setDetailMovies(id)
+                viewModel.getDetailMovies().observe(this, {moviesDetail ->
+                    moviesDetailResponse = moviesDetail
+                    putDataMoviesToView(moviesDetail)
+                })
+            } else {
+                viewModel.getFavTvById(id).observe(this, {favTv->
+                    if(favTv !== null) {
+                        if (favTv.id > 0) {
+                            isFavorite = true
+                            setFavButtonColor(true)
+                        }
                     }
-                }
+                })
+                viewModel.setDetailTv(id)
+                viewModel.getDetailTv().observe(this, {tvDetail->
+                    tvDetailResponse = tvDetail
+                    putDataTvShowsToView(tvDetail)
+                })
+            }
+
+            binding.fabAdd.setOnClickListener {
+                onClickButton(isMovies.toBoolean())
             }
         }
     }
 
-    private fun putDataMoviesToView(data: MoviesEntity){
-        tvDetailName.text = data.title
-        tvDetailYear.text = data.year
-        tvDetailMotto.text = data.motto
-        tvDetailDirector.text = data.director
-        tvDetailOverview.text = data.description
-
-        imgDetail.tag = data.imagePath
-        Glide.with(this)
-            .load(data.imagePath)
-            .apply(RequestOptions().override(150, 170))
-            .into(img_detail)
+    private fun onClickButton(isMovies: Boolean){
+        if(isMovies){
+            insertDelFavMovies(moviesDetailResponse)
+        } else {
+            insertDelFavTv(tvDetailResponse)
+        }
     }
 
-    private fun putDataTvShowsToView(data: TvShowsEntity){
-        tvDetailName.text = data.title
-        tvDetailYear.text = data.year
-        tvDetailMotto.text = data.motto
-        tvDetailDirector.text = data.director
-        tvDetailOverview.text = data.description
+    private fun putDataMoviesToView(data: MoviesDetailResponse?){
+        if (data != null) {
+            binding.tvDetailName.text = data.originalTitle
+            binding.tvDetailDate.text = data.releaseDate
+            binding.tvDetailMotto.text = data.originalLanguage
+            binding.tvDetailDirector.text = data.popularity.toString()
+            binding.tvDetailOverview.text = data.overview
 
-        imgDetail.tag = data.imagePath
-        Glide.with(this)
-            .load(data.imagePath)
-            .apply(RequestOptions().override(150, 170))
-            .into(img_detail)
+            val imgUrl = data.posterPath?.let { jsonHelper.loadImage(it) }
+            binding.imgDetail.tag = data.posterPath
+            Glide.with(this)
+                .load(imgUrl)
+                .apply(RequestOptions().override(150, 170))
+                .into(binding.imgDetail)
+        }
+    }
+
+    private fun putDataTvShowsToView(data: TvDetailResponse?){
+        if(data !== null){
+            binding.tvDetailName.text = data.name
+            binding.tvDetailDate.text = data.firstAirDate
+            binding.tvDetailMotto.text = data.originalLanguage
+            binding.tvDetailDirector.text = data.popularity.toString()
+            binding.tvDetailOverview.text = data.overview
+
+            val imgUrl = data.posterPath?.let { jsonHelper.loadImage(it) }
+            binding.imgDetail.tag = data.posterPath
+            Glide.with(this)
+                    .load(imgUrl)
+                    .apply(RequestOptions().override(150, 170))
+                    .into(binding.imgDetail)
+        }
+    }
+
+    private fun insertDelFavMovies(data: MoviesDetailResponse?){
+        if (data != null) {
+            val favMovies = MoviesEntity(
+                data.id!!,
+                data.title!!,
+                data.releaseDate!!,
+                data.originalLanguage!!,
+                data.posterPath!!
+            )
+            if(!isFavorite){
+                viewModel.insertFavMovies(favMovies)
+                setFavButtonColor(true)
+            } else {
+                viewModel.delFavMovies(favMovies)
+                setFavButtonColor(false)
+            }
+        }
+    }
+
+    private fun insertDelFavTv(data: TvDetailResponse?){
+        if (data != null) {
+            val favTv = TvShowsEntity(
+                data.id!!,
+                data.name!!,
+                data.firstAirDate!!,
+                data.originalLanguage!!,
+                data.posterPath!!
+            )
+            if(!isFavorite) {
+                viewModel.insertFavTv(favTv)
+                setFavButtonColor(true)
+            } else {
+                viewModel.delFavTv(favTv)
+                setFavButtonColor(false)
+            }
+        }
+    }
+
+    private fun setFavButtonColor(state: Boolean){
+        if(state){
+            binding.fabAdd.setImageResource(R.drawable.ic_favorite_pink_24dp)
+        } else {
+            binding.fabAdd.setImageResource(R.drawable.ic_favorite_black_24dp)
+        }
     }
 }

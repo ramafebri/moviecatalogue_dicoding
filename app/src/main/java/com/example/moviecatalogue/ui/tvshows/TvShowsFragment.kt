@@ -7,31 +7,44 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
-import kotlinx.android.synthetic.main.fragment_tvshows.*
+import com.example.moviecatalogue.databinding.FragmentTvshowsBinding
+import com.example.moviecatalogue.viewmodel.ViewModelFactory
 
 class TvShowsFragment : Fragment() {
-
+    private lateinit var tvShowsBinding: FragmentTvshowsBinding
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_tvshows, container, false)
+    ): View {
+        val binding = FragmentTvshowsBinding.inflate(inflater, container, false)
+        tvShowsBinding = binding
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[TvShowsViewModel::class.java]
-            val tvShows = viewModel.getTvShows()
-            val tvShowsAdapter = TvShowsAdapter(tvShows as ArrayList<TvShowsEntity>)
-            with(rv_tvShows_fragment) {
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[TvShowsViewModel::class.java]
+            val tvAdapter = TvShowsAdapter()
+
+            viewModel.setTvShows()
+            viewModel.getTvShows().observe(viewLifecycleOwner, { tv ->
+                tvAdapter.setMovies(tv)
+                tvAdapter.notifyDataSetChanged()
+            })
+
+            with(tvShowsBinding.rvTvShowsFragment) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tvShowsAdapter
+                adapter = tvAdapter
             }
         }
+    }
+
+    override fun onDestroyView() {
+        tvShowsBinding
+        super.onDestroyView()
     }
 }
