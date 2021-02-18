@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
 import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 import com.example.moviecatalogue.data.source.remote.response.MoviesDetailResponse
@@ -17,12 +18,12 @@ interface MoviesTvDataSource {
     fun setAllTv()
     fun getDetailTv(): LiveData<TvDetailResponse?>
     fun setDetailTv(id: Int)
-    fun getFavMovies(): LiveData<List<MoviesEntity>>
-    fun getFavMoviesById(moviesId: Int): LiveData<MoviesEntity>
+    fun getFavMovies(): LiveData<PagedList<MoviesEntity>>
+    fun getFavMoviesById(moviesId: Int): LiveData<MoviesEntity?>
     fun insertFavMovies(moviesEntity: MoviesEntity)
     fun deleteFavMovies(moviesEntity: MoviesEntity)
-    fun getFavTv(): LiveData<List<TvShowsEntity>>
-    fun getFavTvById(tvId: Int): LiveData<TvShowsEntity>
+    fun getFavTv(): LiveData<PagedList<TvShowsEntity>>
+    fun getFavTvById(tvId: Int): LiveData<TvShowsEntity?>
     fun insertFavTv(tvEntity: TvShowsEntity)
     fun deleteFavTv(tvEntity: TvShowsEntity)
 }

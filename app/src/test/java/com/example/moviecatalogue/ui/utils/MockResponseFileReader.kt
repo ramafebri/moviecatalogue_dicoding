@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.ui
+package com.example.moviecatalogue.ui.utils
 
 import java.io.InputStreamReader
 

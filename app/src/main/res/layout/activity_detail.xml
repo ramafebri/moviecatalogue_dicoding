@@ -46,7 +46,7 @@
             />
 
         <TextView
-            android:id="@+id/tv_detail_motto"
+            android:id="@+id/tv_detail_language"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -67,11 +67,11 @@
             android:text="@string/popularity"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_below="@id/tv_detail_motto"
+            android:layout_below="@id/tv_detail_language"
             />
 
         <TextView
-            android:id="@+id/tv_detail_director"
+            android:id="@+id/tv_detail_popularity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -80,7 +80,7 @@
             android:text="@string/movies_popularity"
             android:textSize="16sp"
             android:layout_toRightOf="@id/tv_detail_dir"
-            android:layout_below="@id/tv_detail_motto"
+            android:layout_below="@id/tv_detail_language"
             android:layout_toEndOf="@id/tv_detail_dir" />
 
         <TextView

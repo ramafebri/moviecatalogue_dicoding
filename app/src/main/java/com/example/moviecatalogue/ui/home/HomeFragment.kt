@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ class HomeFragment : Fragment() {
             viewModel.getPlayingMovies().observe(viewLifecycleOwner, { movies ->
                 homeAdapter.setMovies(movies)
                 homeAdapter.notifyDataSetChanged()
+                fragmentHomeBinding.pgrBarMovies.isVisible = false
             })
 
             with(fragmentHomeBinding.rvHomeFragment) {

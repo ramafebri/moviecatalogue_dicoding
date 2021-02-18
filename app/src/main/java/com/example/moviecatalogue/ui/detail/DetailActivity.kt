@@ -31,7 +31,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.title = "Detail Item"
+        supportActionBar?.title = resources.getString(R.string.detail_item)
 
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailViewModel::class.java]
@@ -89,8 +89,8 @@ class DetailActivity : AppCompatActivity() {
         if (data != null) {
             binding.tvDetailName.text = data.originalTitle
             binding.tvDetailDate.text = data.releaseDate
-            binding.tvDetailMotto.text = data.originalLanguage
-            binding.tvDetailDirector.text = data.popularity.toString()
+            binding.tvDetailLanguage.text = data.originalLanguage
+            binding.tvDetailPopularity.text = data.popularity.toString()
             binding.tvDetailOverview.text = data.overview
 
             val imgUrl = data.posterPath?.let { jsonHelper.loadImage(it) }
@@ -106,8 +106,8 @@ class DetailActivity : AppCompatActivity() {
         if(data !== null){
             binding.tvDetailName.text = data.name
             binding.tvDetailDate.text = data.firstAirDate
-            binding.tvDetailMotto.text = data.originalLanguage
-            binding.tvDetailDirector.text = data.popularity.toString()
+            binding.tvDetailLanguage.text = data.originalLanguage
+            binding.tvDetailPopularity.text = data.popularity.toString()
             binding.tvDetailOverview.text = data.overview
 
             val imgUrl = data.posterPath?.let { jsonHelper.loadImage(it) }
@@ -122,11 +122,11 @@ class DetailActivity : AppCompatActivity() {
     private fun insertDelFavMovies(data: MoviesDetailResponse?){
         if (data != null) {
             val favMovies = MoviesEntity(
-                data.id!!,
-                data.title!!,
-                data.releaseDate!!,
-                data.originalLanguage!!,
-                data.posterPath!!
+                    data.id ?: 0,
+                    data.title ?: "",
+                    data.releaseDate ?: "",
+                    data.originalLanguage ?: "",
+                    data.posterPath ?: ""
             )
             if(!isFavorite){
                 viewModel.insertFavMovies(favMovies)
@@ -134,6 +134,7 @@ class DetailActivity : AppCompatActivity() {
             } else {
                 viewModel.delFavMovies(favMovies)
                 setFavButtonColor(false)
+                finish()
             }
         }
     }
@@ -141,11 +142,11 @@ class DetailActivity : AppCompatActivity() {
     private fun insertDelFavTv(data: TvDetailResponse?){
         if (data != null) {
             val favTv = TvShowsEntity(
-                data.id!!,
-                data.name!!,
-                data.firstAirDate!!,
-                data.originalLanguage!!,
-                data.posterPath!!
+                    data.id ?: 0,
+                    data.name ?: "",
+                    data.firstAirDate ?: "",
+                    data.originalLanguage ?: "",
+                    data.posterPath ?: ""
             )
             if(!isFavorite) {
                 viewModel.insertFavTv(favTv)
@@ -153,6 +154,7 @@ class DetailActivity : AppCompatActivity() {
             } else {
                 viewModel.delFavTv(favTv)
                 setFavButtonColor(false)
+                finish()
             }
         }
     }

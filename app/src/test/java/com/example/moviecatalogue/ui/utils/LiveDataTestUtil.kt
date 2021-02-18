@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.utils
+package com.example.moviecatalogue.ui.utils
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer

@@ -2,12 +2,10 @@ package com.example.moviecatalogue.ui.tvshows
 
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.source.remote.response.ResultsItemTv
 import com.example.moviecatalogue.databinding.ItemListBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
@@ -23,7 +21,7 @@ class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvShowsAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
+        val view = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
 
@@ -35,8 +33,7 @@ class TvShowsAdapter : RecyclerView.Adapter<TvShowsAdapter.ViewHolder>() {
         return tvEntity.size
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = ItemListBinding.bind(view)
+    inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(tvShows: ResultsItemTv) {
             with(binding) {
                 tvItemTitle.text = tvShows.name

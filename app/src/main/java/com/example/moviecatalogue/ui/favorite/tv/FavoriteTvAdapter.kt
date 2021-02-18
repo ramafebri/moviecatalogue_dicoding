@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.ui.favorite.movies
+package com.example.moviecatalogue.ui.favorite.tv
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,19 +8,19 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
+import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
 import com.example.moviecatalogue.databinding.ItemListBinding
 import com.example.moviecatalogue.ui.detail.DetailActivity
 import com.example.moviecatalogue.utils.JsonHelper
 
-class FavoriteMoviesAdapter: PagedListAdapter<MoviesEntity, FavoriteMoviesAdapter.ViewHolder>(DIFF_CALLBACK) {
+class FavoriteTvAdapter : PagedListAdapter<TvShowsEntity, FavoriteTvAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MoviesEntity>() {
-            override fun areItemsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<TvShowsEntity>() {
+            override fun areItemsTheSame(oldItem: TvShowsEntity, newItem: TvShowsEntity): Boolean {
                 return oldItem.id == newItem.id
             }
-            override fun areContentsTheSame(oldItem: MoviesEntity, newItem: MoviesEntity): Boolean {
+            override fun areContentsTheSame(oldItem: TvShowsEntity, newItem: TvShowsEntity): Boolean {
                 return oldItem == newItem
             }
         }
@@ -32,33 +32,33 @@ class FavoriteMoviesAdapter: PagedListAdapter<MoviesEntity, FavoriteMoviesAdapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val favMovies = getItem(position)
-        if (favMovies != null) {
-            holder.bind(favMovies)
+        val favTv = getItem(position)
+        if (favTv != null) {
+            holder.bind(favTv)
         }
     }
 
-    fun getSwipedData(swipedPosition: Int): MoviesEntity? = getItem(swipedPosition)
+    fun getSwipedData(swipedPosition: Int): TvShowsEntity? = getItem(swipedPosition)
 
     inner class ViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movies: MoviesEntity) {
+        fun bind(tv: TvShowsEntity) {
             with(binding) {
-                tvItemTitle.text = movies.title
-                tvItemDate.text = movies.date
-                tvItemMotto.text = movies.language
+                tvItemTitle.text = tv.title
+                tvItemDate.text = tv.date
+                tvItemMotto.text = tv.language
 
                 val jsonHelper = JsonHelper()
-                val imgUri = movies.image.let { jsonHelper.loadImage(it) }
+                val imgUri = tv.image.let { jsonHelper.loadImage(it) }
                 Glide.with(root.context)
-                    .load(imgUri)
-                    .apply(RequestOptions().override(120, 150))
-                    .into(imgPoster)
+                        .load(imgUri)
+                        .apply(RequestOptions().override(120, 150))
+                        .into(imgPoster)
             }
 
             binding.root.setOnClickListener {
                 val moveToDetail = Intent(binding.root.context, DetailActivity::class.java)
-                moveToDetail.putExtra(DetailActivity.IS_MOVIES, "true")
-                moveToDetail.putExtra(DetailActivity.ID, movies.id)
+                moveToDetail.putExtra(DetailActivity.IS_MOVIES, "false")
+                moveToDetail.putExtra(DetailActivity.ID, tv.id)
                 binding.root.context.startActivity(moveToDetail)
             }
         }

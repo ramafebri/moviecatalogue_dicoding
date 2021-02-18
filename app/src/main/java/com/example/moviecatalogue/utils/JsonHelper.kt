@@ -160,7 +160,8 @@ class JsonHelper {
             val releaseDate = json.string("release_date")
             val voteAverage = json.int("vote_average")?.toDouble()
 
-            val belongsToCollection = json.string("belongs_to_collection")
+            val dataBelongsToCollection = json.obj("belongs_to_collection")
+            val belongsToCollection = dataBelongsToCollection?.let { loadBelongsToCollection(it) }
             val tagLine = json.string("tagline")
             val adult = json.boolean("adult")
             val homepage = json.string("homepage")
@@ -423,6 +424,20 @@ class JsonHelper {
             list.add(response)
         }
         return list
+    }
+
+    private fun loadBelongsToCollection(item: JsonObject): BelongsToCollection {
+        val name = item.string("name")
+        val id = item.int("id")
+        val posterPath = item.string("poster_path")
+        val backdropPath = item.string("backdrop_path")
+
+        return BelongsToCollection(
+            id,
+            name,
+            posterPath,
+            backdropPath
+        )
     }
 
     private fun loadNextEpisode(episodeItem: JsonObject): NextEpisodeToAir {

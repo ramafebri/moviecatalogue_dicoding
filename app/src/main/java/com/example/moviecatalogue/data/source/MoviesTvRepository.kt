@@ -1,6 +1,8 @@
 package com.example.moviecatalogue.data.source
 
 import androidx.lifecycle.LiveData
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.example.moviecatalogue.data.source.local.LocalDataSource
 import com.example.moviecatalogue.data.source.local.entity.MoviesEntity
 import com.example.moviecatalogue.data.source.local.entity.TvShowsEntity
@@ -59,11 +61,16 @@ class MoviesTvRepository private constructor(
         remoteDataSource.setDetailTv(id)
     }
 
-    override fun getFavMovies(): LiveData<List<MoviesEntity>> {
-        return localDataSource.getFavMovies()
+    override fun getFavMovies(): LiveData<PagedList<MoviesEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavMovies(), config).build()
     }
 
-    override fun getFavMoviesById(moviesId: Int): LiveData<MoviesEntity> {
+    override fun getFavMoviesById(moviesId: Int): LiveData<MoviesEntity?> {
         return localDataSource.getFavMoviesById(moviesId)
     }
 
@@ -75,11 +82,16 @@ class MoviesTvRepository private constructor(
         appExecutors.diskIO().execute { localDataSource.deleteFavMovies(moviesEntity) }
     }
 
-    override fun getFavTv(): LiveData<List<TvShowsEntity>> {
-        return localDataSource.getFavTv()
+    override fun getFavTv(): LiveData<PagedList<TvShowsEntity>> {
+        val config = PagedList.Config.Builder()
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(4)
+            .setPageSize(4)
+            .build()
+        return LivePagedListBuilder(localDataSource.getFavTv(), config).build()
     }
 
-    override fun getFavTvById(tvId: Int): LiveData<TvShowsEntity> {
+    override fun getFavTvById(tvId: Int): LiveData<TvShowsEntity?> {
         return localDataSource.getFavTvById(tvId)
     }
 

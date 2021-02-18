@@ -6,7 +6,7 @@ import androidx.lifecycle.Observer
 import com.example.moviecatalogue.data.source.MoviesTvRepository
 import com.example.moviecatalogue.data.source.remote.response.ResultsItemTv
 import com.example.moviecatalogue.service.ApiConfig
-import com.example.moviecatalogue.ui.MockResponseFileReader
+import com.example.moviecatalogue.ui.utils.MockResponseFileReader
 import com.example.moviecatalogue.utils.DataDummy
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -41,7 +41,7 @@ class TvShowsViewModelTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.openMocks(this)
+        MockitoAnnotations.initMocks(this)
         viewModel = TvShowsViewModel(moviesTvRepository)
         viewModel.setTvShows()
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,7 @@ class TvShowsFragment : Fragment() {
             viewModel.getTvShows().observe(viewLifecycleOwner, { tv ->
                 tvAdapter.setMovies(tv)
                 tvAdapter.notifyDataSetChanged()
+                tvShowsBinding.pgrBarTv.isVisible = false
             })
 
             with(tvShowsBinding.rvTvShowsFragment) {

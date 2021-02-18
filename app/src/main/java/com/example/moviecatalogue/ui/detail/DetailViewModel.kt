@@ -14,10 +14,10 @@ class DetailViewModel(private val moviesTvRepository: MoviesTvRepository) : View
     fun getDetailTv(): LiveData<TvDetailResponse?> = moviesTvRepository.getDetailTv()
     fun setDetailTv(id: Int) = moviesTvRepository.setDetailTv(id)
 
-    fun getFavMoviesById(id: Int): LiveData<MoviesEntity> = moviesTvRepository.getFavMoviesById(id)
+    fun getFavMoviesById(id: Int): LiveData<MoviesEntity?> = moviesTvRepository.getFavMoviesById(id)
     fun insertFavMovies(moviesEntity: MoviesEntity) = moviesTvRepository.insertFavMovies(moviesEntity)
     fun delFavMovies(moviesEntity: MoviesEntity) = moviesTvRepository.deleteFavMovies(moviesEntity)
-    fun getFavTvById(id: Int): LiveData<TvShowsEntity> = moviesTvRepository.getFavTvById(id)
+    fun getFavTvById(id: Int): LiveData<TvShowsEntity?> = moviesTvRepository.getFavTvById(id)
     fun insertFavTv(tvShowsEntity: TvShowsEntity) = moviesTvRepository.insertFavTv(tvShowsEntity)
     fun delFavTv(tvShowsEntity: TvShowsEntity) = moviesTvRepository.deleteFavTv(tvShowsEntity)
 }
