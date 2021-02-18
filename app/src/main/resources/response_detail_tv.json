@@ -1,0 +1,159 @@
+{
+    "backdrop_path": "/9hvhGtcsGhQY58pukw8w55UEUbL.jpg",
+    "created_by": [
+        {
+            "id": 1098032,
+            "credit_id": "5857f8a49251416fad05b143",
+            "name": "Roberto Aguirre-Sacasa",
+            "gender": 2,
+            "profile_path": "/PtJSrAk7LDqaV5jExCYl10lcsN.jpg"
+        }
+    ],
+    "episode_run_time": [
+        45
+    ],
+    "first_air_date": "2017-01-26",
+    "genres": [
+        {
+            "id": 9648,
+            "name": "Mystery"
+        },
+        {
+            "id": 18,
+            "name": "Drama"
+        },
+        {
+            "id": 80,
+            "name": "Crime"
+        }
+    ],
+    "homepage": "http://www.cwtv.com/shows/riverdale/",
+    "id": 69050,
+    "in_production": true,
+    "languages": [
+        "en"
+    ],
+    "last_air_date": "2021-02-17",
+    "last_episode_to_air": {
+        "air_date": "2021-02-17",
+        "episode_number": 5,
+        "id": 2531052,
+        "name": "Chapter Eighty-One: The Homecoming",
+        "overview": "Toni, Alice, Archie and Kevin fight to keep Riverdale High's doors open after learning that its budget had been cut by Hiram Lodge. Veronica gets creative when she discovers Chad is having her followed. Jughead starts a new job after debt collectors show up in Riverdale.",
+        "production_code": "",
+        "season_number": 5,
+        "still_path": null,
+        "vote_average": 0.0,
+        "vote_count": 0
+    },
+    "name": "Riverdale",
+    "next_episode_to_air": {
+        "air_date": "2021-02-24",
+        "episode_number": 6,
+        "id": 2659642,
+        "name": "Chapter Eighty-Two",
+        "overview": "Archie, Betty, Veronica and Jughead prepare for their first day as Riverdale High's newest teachers. Veronica introduces her husband Chad to the group after he shows up unexpectedly in Riverdale. After realizing they are out of funds, Archie and Toni turn to Cheryl for help restarting the football and cheer teams. Finally, Betty, Kevin and Alice follow a lead after learning that Polly may be in trouble.",
+        "production_code": "",
+        "season_number": 5,
+        "still_path": null,
+        "vote_average": 0.0,
+        "vote_count": 0
+    },
+    "networks": [
+        {
+            "name": "The CW",
+            "id": 71,
+            "logo_path": "/ge9hzeaU7nMtQ4PjkFlc68dGAJ9.png",
+            "origin_country": "US"
+        }
+    ],
+    "number_of_episodes": 83,
+    "number_of_seasons": 5,
+    "origin_country": [
+        "US"
+    ],
+    "original_language": "en",
+    "original_name": "Riverdale",
+    "overview": "Set in the present, the series offers a bold, subversive take on Archie, Betty, Veronica and their friends, exploring the surreality of small-town life, the darkness and weirdness bubbling beneath Riverdale’s wholesome facade.",
+    "popularity": 1466.237,
+    "poster_path": "/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+    "production_companies": [
+        {
+            "id": 1957,
+            "logo_path": "/3T19XSr6yqaLNK8uJWFImPgRax0.png",
+            "name": "Warner Bros. Television",
+            "origin_country": "US"
+        },
+        {
+            "id": 27711,
+            "logo_path": "/3e294jszfE6cE8TOogmj0zNd6pL.png",
+            "name": "Berlanti Productions",
+            "origin_country": "US"
+        }
+    ],
+    "production_countries": [
+        {
+            "iso_3166_1": "US",
+            "name": "United States of America"
+        }
+    ],
+    "seasons": [
+        {
+            "air_date": "2017-01-26",
+            "episode_count": 13,
+            "id": 82752,
+            "name": "Season 1",
+            "overview": "",
+            "poster_path": "/iyLxqUGwOUurAKMOR8hSXmxMISU.jpg",
+            "season_number": 1
+        },
+        {
+            "air_date": "2017-10-11",
+            "episode_count": 22,
+            "id": 91793,
+            "name": "Season 2",
+            "overview": "",
+            "poster_path": "/yrsTz3PAUyKmLaNxvNOGX9alubu.jpg",
+            "season_number": 2
+        },
+        {
+            "air_date": "2018-10-10",
+            "episode_count": 22,
+            "id": 105507,
+            "name": "Season 3",
+            "overview": "",
+            "poster_path": "/gskv297rlbyzLaTU1XZf8UBbxp0.jpg",
+            "season_number": 3
+        },
+        {
+            "air_date": "2019-10-09",
+            "episode_count": 19,
+            "id": 129417,
+            "name": "Season 4",
+            "overview": "",
+            "poster_path": "/4X7o1ssOEvp4BFLim1AZmPNcYbU.jpg",
+            "season_number": 4
+        },
+        {
+            "air_date": "2021-01-20",
+            "episode_count": 7,
+            "id": 167134,
+            "name": "Season 5",
+            "overview": "",
+            "poster_path": "/wRbjVBdDo5qHAEOVYoMWpM58FSA.jpg",
+            "season_number": 5
+        }
+    ],
+    "spoken_languages": [
+        {
+            "english_name": "English",
+            "iso_639_1": "en",
+            "name": "English"
+        }
+    ],
+    "status": "Returning Series",
+    "tagline": "Small town. Big secrets.",
+    "type": "Scripted",
+    "vote_average": 8.6,
+    "vote_count": 9854
+}
