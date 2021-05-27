@@ -13,6 +13,8 @@ The features contained in this application are: <br/>
 -Create, read, delete favorite movies and tv with room database <br/>
 -Pagination at favorite movies and tv list <br/>
 
+Use repository pattern
+
 ### Testing:
 -Unit test <br/>
 -Instrument test <br/>
